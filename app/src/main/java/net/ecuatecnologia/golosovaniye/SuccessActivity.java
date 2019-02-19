@@ -62,7 +62,6 @@ import javax.net.ssl.HttpsURLConnection;
 public class SuccessActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/Android/data/net.ecuatecnologia.golosovaniye/files/Pictures";
 
-
     static TextView receptor;
 
     Button GetImageFromGalleryButton, UploadImageOnServerButton;

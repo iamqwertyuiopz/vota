@@ -181,9 +181,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void abrir (){
-        Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
-        startActivity(intent);
-        MainActivity.this.finish();
-    }
 }
