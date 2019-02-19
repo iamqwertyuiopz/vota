@@ -60,7 +60,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class SuccessActivity extends AppCompatActivity {
-    private static final String IMAGE_DIRECTORY = "/appTEST";
+    private static final String IMAGE_DIRECTORY = "/Android/data/net.ecuatecnologia.golosovaniye/files/Pictures";
 
 
     static TextView receptor;
@@ -72,9 +72,6 @@ public class SuccessActivity extends AppCompatActivity {
     EditText imageName;
     TextView imageName2;
     TextView imageName3;
-
-
-    Bitmap FixBitmap;
 
     String ImageTag = "image_tag" ;
 
@@ -321,8 +318,6 @@ public class SuccessActivity extends AppCompatActivity {
                 Uri contentURI = data.getData();
                 try {
                     thumbnail = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    // String path = saveImage(bitmap);
-                    //Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
                     ShowSelectedImage.setImageBitmap(thumbnail);
                     UploadImageOnServerButton.setVisibility(View.VISIBLE);
 
@@ -343,6 +338,8 @@ public class SuccessActivity extends AppCompatActivity {
                             //Obtiene la ruta donde se encuentra guardada la imagen.
                             imageurl = getRealPathFromURI(imageUri);
                             UploadImageOnServerButton.setVisibility(View.VISIBLE);
+                            saveImage(thumbnail);
+                            Toast.makeText(SuccessActivity.this, "Imagen Guardada", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
