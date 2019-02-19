@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="#FFF"
-                android:text="Seleccionar" />
+                android:text="Cámara" />
 
             <Button
                 android:id="@+id/btnGal"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="#FFF"
-                android:text="Seleccionar" />
+                android:text="Galería" />
 
             <TextView
                 android:id="@+id/subguion"

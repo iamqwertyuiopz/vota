@@ -320,10 +320,10 @@ public class SuccessActivity extends AppCompatActivity {
             if (data != null) {
                 Uri contentURI = data.getData();
                 try {
-                    FixBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    thumbnail = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     // String path = saveImage(bitmap);
                     //Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-                    ShowSelectedImage.setImageBitmap(FixBitmap);
+                    ShowSelectedImage.setImageBitmap(thumbnail);
                     UploadImageOnServerButton.setVisibility(View.VISIBLE);
 
                 } catch (IOException e) {
