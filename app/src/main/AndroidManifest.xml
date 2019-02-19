@@ -28,6 +28,11 @@
             android:configChanges="orientation|screenSize"
             >
         </activity>
+        <activity android:name=".pruebas"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|screenSize"
+            >
+        </activity>
     </application>
 
 </manifest>

@@ -3,11 +3,13 @@ package net.ecuatecnologia.golosovaniye;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -105,6 +108,16 @@ public class SuccessActivity extends AppCompatActivity {
 
     private int GALLERY = 1, CAMERA = 2;
 
+    private static final int PICTURE_RESULT = 122 ;
+    private ContentValues values;
+    private Uri imageUri;
+    private Button myButton;
+    private Button myButton2;
+    private ImageView myImageView;
+    private Bitmap thumbnail;
+
+    String imageurl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +133,7 @@ public class SuccessActivity extends AppCompatActivity {
             receptor.setText(dato);
         }
 
-        GetImageFromGalleryButton = (Button)findViewById(R.id.btnSelec);
+        GetImageFromGalleryButton = (Button)findViewById(R.id.btnCam);
 
         UploadImageOnServerButton = (Button)findViewById(R.id.btnSubir);
 
@@ -164,6 +177,42 @@ public class SuccessActivity extends AppCompatActivity {
                         5);
             }
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            //Verifica permisos para Android 6.0+
+            if(!checkExternalStoragePermission()){
+                return;
+            }
+        }
+
+        myImageView = (ImageView)findViewById(R.id.imgPrev);
+        myButton = (Button)findViewById(R.id.btnCam);
+        myButton2 = (Button)findViewById(R.id.btnGal);
+
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "MyPicture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+                imageUri = getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, PICTURE_RESULT);
+            }
+        });
+        myButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(galleryIntent, GALLERY);
+            }
+        });
     }
 
     private void showPictureDialog(){
@@ -266,13 +315,7 @@ public class SuccessActivity extends AppCompatActivity {
                 .check();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
-            return;
-        }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GALLERY) {
             if (data != null) {
                 Uri contentURI = data.getData();
@@ -289,17 +332,44 @@ public class SuccessActivity extends AppCompatActivity {
                 }
             }
 
-        } else if (requestCode == CAMERA) {
-            FixBitmap = (Bitmap) data.getExtras().get("data");
-            //  ShowSelectedImage.setImageBitmap(FixBitmap);
-            UploadImageOnServerButton.setVisibility(View.VISIBLE);
-            //  saveImage(thumbnail);
-            //Toast.makeText(ShadiRegistrationPart5.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            ShowSelectedImage.setImageBitmap(thumbnail);
-            saveImage(thumbnail);
-            Toast.makeText(SuccessActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
         }
+        switch (requestCode) {
+            case PICTURE_RESULT:
+                if (requestCode == PICTURE_RESULT)
+                    if (resultCode == Activity.RESULT_OK) {
+                        try {
+                            thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            myImageView.setImageBitmap(thumbnail);
+                            //Obtiene la ruta donde se encuentra guardada la imagen.
+                            imageurl = getRealPathFromURI(imageUri);
+                            UploadImageOnServerButton.setVisibility(View.VISIBLE);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+        }
+    }
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+    private boolean checkExternalStoragePermission() {
+        int permissionCheck = ContextCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            Log.i("Mensaje", "No se tiene permiso para leer.");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 225);
+        } else {
+            Log.i("Mensaje", "Se tiene permiso para leer!");
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -307,7 +377,7 @@ public class SuccessActivity extends AppCompatActivity {
 
 
         //PORCENTAJE DE CALIDAD                                aqui
-        FixBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
 
         byteArray = byteArrayOutputStream.toByteArray();
 

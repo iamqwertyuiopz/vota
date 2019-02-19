@@ -44,7 +44,15 @@
                 android:inputType="text" />
 
             <Button
-                android:id="@+id/btnSelec"
+                android:id="@+id/btnCam"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#FFF"
+                android:text="Seleccionar" />
+
+            <Button
+                android:id="@+id/btnGal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
