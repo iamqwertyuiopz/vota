@@ -2,7 +2,6 @@ package net.ecuatecnologia.golosovaniye;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +22,6 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
-
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
     private EditText etEmail;
@@ -35,20 +32,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get Reference to variables
+
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
 
     }
 
-    // Triggers when LOGIN Button clicked
+    // Cuando el boton login tiene un "click"
     public void checkLogin(View arg0) {
 
-        // Get text from email and passord field
+        // Se obtiene los textos de cada "editText"
         final String email = etEmail.getText().toString();
         final String password = etPassword.getText().toString();
 
-        // Initialize  AsyncLogin() class with email and password
+        // Iniciar  AsyncLogin() class con correo y contraseña
         new AsyncLogin().execute(email,password);
 
     }
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            //this method will be running on UI thread
+            //Cuadro de dialogo
             pdLoading.setMessage("\tVerificando...");
             pdLoading.setCancelable(false);
             pdLoading.show();
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             try {
 
-                // Enter URL address where your php file resides
+                //URL del archivo login.php
                 url = new URL("http://134.209.13.62/login/login.inc.php");
 
             } catch (MalformedURLException e) {

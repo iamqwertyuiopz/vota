@@ -4,10 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -135,7 +133,7 @@ public class SuccessActivity extends AppCompatActivity {
 
         ShowSelectedImage = (ImageView)findViewById(R.id.imgPrev);
 
-        imageName=  (EditText)findViewById(R.id.descImg);                                               //PARTE DEL NOMBRE
+        imageName=  (EditText)findViewById(R.id.descImg);
         imageName2=  (TextView)findViewById(R.id.receptor);
         imageName3=  (TextView)findViewById(R.id.subguion);
 
@@ -284,15 +282,14 @@ public class SuccessActivity extends AppCompatActivity {
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        // check if all permissions are granted
+
                         if (report.areAllPermissionsGranted()) {
 
                         }
 
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
-                            // show alert dialog navigating to Settings
-                            //openSettingsDialog();
+
                         }
                     }
 
