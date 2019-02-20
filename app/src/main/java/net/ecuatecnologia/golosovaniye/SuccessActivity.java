@@ -286,7 +286,7 @@ public class SuccessActivity extends AppCompatActivity {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
-                            
+
                         }
 
                         // check for permanent denial of any permission

@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("dato", dato);
                 startActivity(intent);
                 MainActivity.this.finish();
-                Toast.makeText(MainActivity.this, "Ok", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Credenciales Correctas", Toast.LENGTH_LONG).show();
 
             }else if (result.equalsIgnoreCase("false")){
 
