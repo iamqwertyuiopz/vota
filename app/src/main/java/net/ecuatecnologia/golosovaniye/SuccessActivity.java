@@ -58,11 +58,11 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class SuccessActivity extends AppCompatActivity {
-    private static final String IMAGE_DIRECTORY = "/Android/data/net.ecuatecnologia.golosovaniye/files/Pictures";
+    private static final String IMAGE_DIRECTORY = "/Android/data/net.ecuatecnologia.golosovaniye/archivos/imagenes";
 
     static TextView receptor;
 
-    Button GetImageFromGalleryButton, UploadImageOnServerButton;
+    Button  UploadImageOnServerButton;
 
     ImageView ShowSelectedImage;
 
@@ -100,7 +100,7 @@ public class SuccessActivity extends AppCompatActivity {
 
     boolean check = true;
 
-    private int GALLERY = 1, CAMERA = 2;
+    private int GALLERY = 1;
 
     private static final int PICTURE_RESULT = 122 ;
     private ContentValues values;
@@ -127,8 +127,6 @@ public class SuccessActivity extends AppCompatActivity {
             receptor.setText(dato);
         }
 
-        GetImageFromGalleryButton = (Button)findViewById(R.id.btnCam);
-
         UploadImageOnServerButton = (Button)findViewById(R.id.btnSubir);
 
         ShowSelectedImage = (ImageView)findViewById(R.id.imgPrev);
@@ -139,15 +137,6 @@ public class SuccessActivity extends AppCompatActivity {
 
         byteArrayOutputStream = new ByteArrayOutputStream();
 
-        GetImageFromGalleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                showPictureDialog();
-
-
-            }
-        });
 
 
         UploadImageOnServerButton.setOnClickListener(new View.OnClickListener() {
@@ -165,20 +154,6 @@ public class SuccessActivity extends AppCompatActivity {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(SuccessActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{android.Manifest.permission.CAMERA},
-                        5);
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            //Verifica permisos para Android 6.0+
-            if(!checkExternalStoragePermission()){
-                return;
-            }
-        }
-
         myImageView = (ImageView)findViewById(R.id.imgPrev);
         myButton = (Button)findViewById(R.id.btnCam);
         myButton2 = (Button)findViewById(R.id.btnGal);
@@ -188,8 +163,8 @@ public class SuccessActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, "MyPicture");
-                values.put(MediaStore.Images.Media.DESCRIPTION, "Photo taken on " + System.currentTimeMillis());
+                values.put(MediaStore.Images.Media.TITLE, "Imagen");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "App " + System.currentTimeMillis());
                 imageUri = getContentResolver().insert(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -207,40 +182,6 @@ public class SuccessActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLERY);
             }
         });
-    }
-
-    private void showPictureDialog(){
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Selecciona:");
-        String[] pictureDialogItems = {
-                "Galería",
-                "Cámara" };
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                choosePhotoFromGallary();
-                                break;
-                            case 1:
-                                takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                });
-        pictureDialog.show();
-    }
-    public void choosePhotoFromGallary() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(galleryIntent, GALLERY);
-    }
-
-    private void takePhotoFromCamera() {
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA);
     }
 
 
@@ -351,19 +292,6 @@ public class SuccessActivity extends AppCompatActivity {
         return cursor.getString(column_index);
     }
 
-    private boolean checkExternalStoragePermission() {
-        int permissionCheck = ContextCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.i("Mensaje", "No se tiene permiso para leer.");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 225);
-        } else {
-            Log.i("Mensaje", "Se tiene permiso para leer!");
-            return true;
-        }
-
-        return false;
-    }
 
 
     public void UploadImageToServer(){
