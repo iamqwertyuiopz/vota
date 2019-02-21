@@ -67,9 +67,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapCharacters"
+                    android:digits="ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789@#$%-+()*':;!?,_."
                     android:textStyle="bold"
-                    android:hint="Introduce un nombre"/>
+                    android:hint="Introduce un nombre"
+                    android:singleLine="true"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,5 +120,15 @@
     </ScrollView>
 
 
-
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="485dp"
+        android:layout_marginEnd="125dp"
+        android:layout_marginRight="146dp"
+        android:src="@drawable/ic_logo" />
 </RelativeLayout>

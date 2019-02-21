@@ -44,7 +44,9 @@
             android:drawableRight="@drawable/ic_person"
             android:hint="Nombre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:singleLine="true"/>
         <TextView
             android:layout_marginTop="5dp"
             android:text="Contraseña"
@@ -57,7 +59,8 @@
             android:hint="********"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:singleLine="true"/>
         <Button
             android:textColor="#FFF"
             android:background="@drawable/rec_gradient"
@@ -88,4 +91,15 @@
         android:text="Iniciar Sesión"
         android:textColor="#FFF"
         android:textSize="20sp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="438dp"
+        android:layout_marginRight="140dp"
+        android:layout_marginLeft="140dp"
+        android:src="@drawable/ic_logo" />
 </RelativeLayout>
