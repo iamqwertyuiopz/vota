@@ -1,0 +1,4 @@
+Votaciones2019.jks
+Password: Votaciones.2019
+Alias: Ariel
+Password: Hahalex81
