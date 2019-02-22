@@ -107,6 +107,7 @@ public class SuccessActivity extends AppCompatActivity {
     private Uri imageUri;
     private Button myButton;
     private Button myButton2;
+    private Button LogOut;
     private ImageView myImageView;
     private Bitmap thumbnail;
 
@@ -157,6 +158,18 @@ public class SuccessActivity extends AppCompatActivity {
         myImageView = (ImageView)findViewById(R.id.imgPrev);
         myButton = (Button)findViewById(R.id.btnCam);
         myButton2 = (Button)findViewById(R.id.btnGal);
+        LogOut = (Button)findViewById(R.id.btnLogout);
+
+        LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent mainIntent = new Intent(SuccessActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+                SuccessActivity.this.finish();
+                Toast.makeText(SuccessActivity.this, "Sesión Cerrada", Toast.LENGTH_LONG).show();
+            }
+        });
 
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -58,7 +58,7 @@
                         android:layout_gravity="center"
                         android:foregroundGravity="center"
                         android:scaleType="centerInside"
-                        android:src="@drawable/ic_remove" />
+                        android:src="@drawable/ic_logo" />
 
                 </FrameLayout>
 
@@ -103,32 +103,36 @@
 
                     <Button
                         android:id="@+id/btnSubir"
+                        android:visibility="gone"
                         android:textStyle="bold"
                         style="@style/buttonStyle"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="3"
                         android:text="Subir >>"
-                        android:visibility="gone"
                         android:drawableLeft="@drawable/ic_save"/>
 
 
 
                 </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLogout"
+                style="@style/buttonStyle"
+                android:layout_width="135dp"
+                android:layout_height="37dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="140dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="156dp"
+                android:layout_marginRight="156dp"
+                android:drawableLeft="@drawable/ic_logout"
+                android:text="Cerrar Sesión"
+                android:textStyle="bold" />
         </RelativeLayout>
     </ScrollView>
 
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="485dp"
-        android:layout_marginEnd="125dp"
-        android:layout_marginRight="146dp"
-        android:src="@drawable/ic_logo" />
 </RelativeLayout>

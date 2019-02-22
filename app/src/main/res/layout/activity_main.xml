@@ -74,14 +74,13 @@
 
     <ImageView
         android:id="@+id/imageVIew"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher"
-        android:background="@drawable/background_white"
         android:padding="5dp"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
+        android:src="@drawable/ic_logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,14 +91,4 @@
         android:textColor="#FFF"
         android:textSize="20sp" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="438dp"
-        android:layout_marginRight="140dp"
-        android:layout_marginLeft="140dp"
-        android:src="@drawable/ic_logo" />
 </RelativeLayout>
