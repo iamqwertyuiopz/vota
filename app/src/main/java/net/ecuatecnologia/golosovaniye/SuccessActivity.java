@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,13 +11,9 @@ import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -58,6 +53,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 public class SuccessActivity extends AppCompatActivity {
+
     private static final String IMAGE_DIRECTORY = "/Android/data/net.ecuatecnologia.golosovaniye/archivos/imagenes";
 
     static TextView receptor;
@@ -285,6 +281,7 @@ public class SuccessActivity extends AppCompatActivity {
                         try {
                             thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                             myImageView.setImageBitmap(thumbnail);
+                            myImageView.setRotation(90);
                             //Obtiene la ruta donde se encuentra guardada la imagen.
                             imageurl = getRealPathFromURI(imageUri);
                             UploadImageOnServerButton.setVisibility(View.VISIBLE);
