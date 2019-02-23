@@ -308,7 +308,7 @@ public class SuccessActivity extends AppCompatActivity {
 
 
         //PORCENTAJE DE CALIDAD                                aqui
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        thumbnail.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
 
         byteArray = byteArrayOutputStream.toByteArray();
 
