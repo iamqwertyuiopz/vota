@@ -63,15 +63,37 @@
 
                 </FrameLayout>
 
+                <Spinner
+                    android:id="@+id/sGenero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Spinner
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/sDignidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <EditText
-                    android:id="@+id/descImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/datasGenero"
+                    android:visibility="gone"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/datasDignidad"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/nmJunta"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textCapCharacters"
-                    android:digits="ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789@#$%-+()*':;!?,_."
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:textStyle="bold"
-                    android:hint="Introduce un nombre"
+                    android:hint="Número de Junta"
                     android:singleLine="true"
                     />
                 <LinearLayout

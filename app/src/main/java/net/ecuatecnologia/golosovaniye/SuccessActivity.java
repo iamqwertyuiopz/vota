@@ -18,9 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,12 @@ public class SuccessActivity extends AppCompatActivity {
 
     static TextView receptor;
 
+    Spinner dignidad;
+
+    Spinner genero;
+
+    EditText dataDignidad, dataGenero;
+
     Button  UploadImageOnServerButton;
 
     ImageView ShowSelectedImage;
@@ -70,6 +79,12 @@ public class SuccessActivity extends AppCompatActivity {
 
     String ImageName = "image_data" ;
 
+    String DignidadCodigo = "dignidad_codigo" ;
+
+    String Genero = "genero" ;
+
+    String NumeroJunta = "numero_junta" ;
+
     ProgressDialog progressDialog ;
 
     ByteArrayOutputStream byteArrayOutputStream ;
@@ -78,7 +93,7 @@ public class SuccessActivity extends AppCompatActivity {
 
     String ConvertImage ;
 
-    String GetImageNameFromEditText;
+    String GetImageNameFromEditText, GetnJunta, GetDignidad, GetGenero;
 
     HttpURLConnection httpURLConnection ;
 
@@ -115,6 +130,14 @@ public class SuccessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_success);
         requestMultiplePermissions();
 
+        genero = (Spinner) findViewById(R.id.sGenero);
+
+        dignidad = (Spinner) findViewById(R.id.sDignidad);
+
+        dataGenero = (EditText) findViewById(R.id.datasGenero);
+
+        dataDignidad = (EditText) findViewById(R.id.datasDignidad);
+
         receptor = (TextView) findViewById(R.id.receptor);
 
         //Recepcion de datos.
@@ -128,7 +151,7 @@ public class SuccessActivity extends AppCompatActivity {
 
         ShowSelectedImage = (ImageView)findViewById(R.id.imgPrev);
 
-        imageName=  (EditText)findViewById(R.id.descImg);
+        imageName=  (EditText)findViewById(R.id.nmJunta);
         imageName2=  (TextView)findViewById(R.id.receptor);
         imageName3=  (TextView)findViewById(R.id.subguion);
 
@@ -140,8 +163,13 @@ public class SuccessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                GetImageNameFromEditText = imageName2.getText().toString()+imageName3.getText().toString()+imageName.getText().toString()+imageName3.getText().toString()+Calendar.getInstance()
+                GetImageNameFromEditText = imageName2.getText().toString()+imageName3.getText().toString()+imageName3.getText().toString()+Calendar.getInstance()
                         .getTimeInMillis();
+                GetnJunta = imageName.getText().toString();
+
+                GetGenero = dataGenero.getText().toString();
+
+                GetDignidad = dataDignidad.getText().toString();
 
                 UploadImageToServer();
 
@@ -189,6 +217,39 @@ public class SuccessActivity extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(galleryIntent, GALLERY);
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapterd = ArrayAdapter.createFromResource(this,R.array.combo_dignidades,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterg = ArrayAdapter.createFromResource(this,R.array.combo_genero,android.R.layout.simple_spinner_item);
+
+        genero.setAdapter(adapterg);
+        dignidad.setAdapter(adapterd);
+
+        genero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                dataGenero.setText(parent.getItemAtPosition(position).toString());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        dignidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                dataDignidad.setText(parent.getItemAtPosition(position).toString());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
@@ -346,6 +407,12 @@ public class SuccessActivity extends AppCompatActivity {
                 HashMapParams.put(ImageTag, GetImageNameFromEditText);
 
                 HashMapParams.put(ImageName, ConvertImage);
+
+                HashMapParams.put(NumeroJunta, GetnJunta);
+
+                HashMapParams.put(Genero,GetGenero);
+
+                HashMapParams.put(DignidadCodigo,GetDignidad);
 
                 String FinalData = imageProcessClass.ImageHttpRequest("http://134.209.13.62/index.php", HashMapParams);
 

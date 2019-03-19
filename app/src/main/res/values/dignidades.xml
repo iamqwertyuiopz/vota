@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="combo_dignidades">
+        <item>PREFECTO Y VICEPREFECTO</item>
+        <item>CONCEJALES RURALES</item>
+        <item>ALCALDES MUNICIPALES</item>
+        <item>CONCEJALES URBANOS</item>
+        <item>VOCALES JUNTAS PARROQUIALES</item>
+    </string-array>
+</resources>
