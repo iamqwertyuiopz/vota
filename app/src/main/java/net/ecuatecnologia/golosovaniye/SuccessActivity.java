@@ -61,11 +61,9 @@ public class SuccessActivity extends AppCompatActivity {
 
     static TextView receptor;
 
-    Spinner dignidad;
+    Spinner genero, dignidad;
 
-    Spinner genero;
-
-    EditText dataDignidad, dataGenero;
+    EditText dGenero, dDignidad;
 
     Button  UploadImageOnServerButton;
 
@@ -79,11 +77,13 @@ public class SuccessActivity extends AppCompatActivity {
 
     String ImageName = "image_data" ;
 
-    String DignidadCodigo = "dignidad_codigo" ;
+    String DignidadCodigo = "dignidad_codigo";
 
-    String Genero = "genero" ;
+    String Genero = "genero";
 
-    String NumeroJunta = "numero_junta" ;
+    String NumeroJunta = "numero_junta";
+
+
 
     ProgressDialog progressDialog ;
 
@@ -93,7 +93,7 @@ public class SuccessActivity extends AppCompatActivity {
 
     String ConvertImage ;
 
-    String GetImageNameFromEditText, GetnJunta, GetDignidad, GetGenero;
+    String GetImageNameFromEditText, GetJunta, GetGenero, GetDignidad;
 
     HttpURLConnection httpURLConnection ;
 
@@ -134,9 +134,9 @@ public class SuccessActivity extends AppCompatActivity {
 
         dignidad = (Spinner) findViewById(R.id.sDignidad);
 
-        dataGenero = (EditText) findViewById(R.id.datasGenero);
+        dGenero = (EditText) findViewById(R.id.datasGenero);
 
-        dataDignidad = (EditText) findViewById(R.id.datasDignidad);
+        dDignidad = (EditText) findViewById(R.id.datasDignidad);
 
         receptor = (TextView) findViewById(R.id.receptor);
 
@@ -151,7 +151,7 @@ public class SuccessActivity extends AppCompatActivity {
 
         ShowSelectedImage = (ImageView)findViewById(R.id.imgPrev);
 
-        imageName=  (EditText)findViewById(R.id.nmJunta);
+        imageName=  (EditText)findViewById(R.id.descImg);
         imageName2=  (TextView)findViewById(R.id.receptor);
         imageName3=  (TextView)findViewById(R.id.subguion);
 
@@ -163,13 +163,14 @@ public class SuccessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                GetImageNameFromEditText = imageName2.getText().toString()+imageName3.getText().toString()+imageName3.getText().toString()+Calendar.getInstance()
+                GetImageNameFromEditText = imageName2.getText().toString()+imageName3.getText().toString()+imageName.getText().toString()+imageName3.getText().toString()+Calendar.getInstance()
                         .getTimeInMillis();
-                GetnJunta = imageName.getText().toString();
 
-                GetGenero = dataGenero.getText().toString();
+                GetJunta = imageName.getText().toString();
 
-                GetDignidad = dataDignidad.getText().toString();
+                GetGenero = dGenero.getText().toString();
+
+                GetDignidad = dDignidad.getText().toString();
 
                 UploadImageToServer();
 
@@ -219,7 +220,6 @@ public class SuccessActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLERY);
             }
         });
-
         ArrayAdapter<CharSequence> adapterd = ArrayAdapter.createFromResource(this,R.array.combo_dignidades,android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> adapterg = ArrayAdapter.createFromResource(this,R.array.combo_genero,android.R.layout.simple_spinner_item);
 
@@ -230,7 +230,7 @@ public class SuccessActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                dataGenero.setText(parent.getItemAtPosition(position).toString());
+                dGenero.setText(parent.getItemAtPosition(position).toString());
 
             }
 
@@ -243,7 +243,7 @@ public class SuccessActivity extends AppCompatActivity {
         dignidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                dataDignidad.setText(parent.getItemAtPosition(position).toString());
+                dDignidad.setText(parent.getItemAtPosition(position).toString());
 
             }
 
@@ -252,6 +252,7 @@ public class SuccessActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -408,11 +409,11 @@ public class SuccessActivity extends AppCompatActivity {
 
                 HashMapParams.put(ImageName, ConvertImage);
 
-                HashMapParams.put(NumeroJunta, GetnJunta);
+                HashMapParams.put(NumeroJunta, GetJunta);
 
-                HashMapParams.put(Genero,GetGenero);
+                HashMapParams.put(Genero, GetGenero);
 
-                HashMapParams.put(DignidadCodigo,GetDignidad);
+                HashMapParams.put(DignidadCodigo, GetDignidad);
 
                 String FinalData = imageProcessClass.ImageHttpRequest("http://134.209.13.62/index.php", HashMapParams);
 
