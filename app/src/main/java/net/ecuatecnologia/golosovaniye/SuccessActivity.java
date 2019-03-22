@@ -158,29 +158,6 @@ public class SuccessActivity extends AppCompatActivity {
 
         byteArrayOutputStream = new ByteArrayOutputStream();
 
-
-
-        UploadImageOnServerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                GetImageNameFromEditText = imageName2.getText().toString()+imageName3.getText().toString()+imageName.getText().toString()+imageName3.getText().toString()+Calendar.getInstance()
-                        .getTimeInMillis();
-
-                GetJunta = imageName.getText().toString();
-
-                GetGenero = dGenero.getText().toString();
-
-                GetDignidad = dDignidad.getText().toString();
-
-                UploadImageToServer();
-
-
-
-
-            }
-        });
-
         myImageView = (ImageView)findViewById(R.id.imgPrev);
         myButton = (Button)findViewById(R.id.btnCam);
         myButton2 = (Button)findViewById(R.id.btnGal);
@@ -261,37 +238,25 @@ public class SuccessActivity extends AppCompatActivity {
             }
         });
 
+        UploadImageOnServerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                GetImageNameFromEditText = imageName2.getText().toString()+imageName3.getText().toString()+imageName.getText().toString()+imageName3.getText().toString()+Calendar.getInstance()
+                        .getTimeInMillis();
+
+                GetJunta = imageName.getText().toString();
+
+                GetGenero = dGenero.getText().toString();
+
+                GetDignidad = dDignidad.getText().toString();
+
+                UploadImageToServer();
+            }
+        });
+
     }
 
-
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.PNG, 67, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
-
-        try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".png");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/png"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
 
     private void  requestMultiplePermissions(){
         Dexter.withActivity(this)
@@ -354,8 +319,6 @@ public class SuccessActivity extends AppCompatActivity {
                             //Obtiene la ruta donde se encuentra guardada la imagen.
                             imageurl = getRealPathFromURI(imageUri);
                             UploadImageOnServerButton.setVisibility(View.VISIBLE);
-                            saveImage(thumbnail);
-                            Toast.makeText(SuccessActivity.this, "Imagen Guardada", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -377,7 +340,7 @@ public class SuccessActivity extends AppCompatActivity {
 
 
         //PORCENTAJE DE CALIDAD                                aqui
-        thumbnail.compress(Bitmap.CompressFormat.PNG, 67, byteArrayOutputStream);
+        thumbnail.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
 
         byteArray = byteArrayOutputStream.toByteArray();
 
@@ -401,7 +364,9 @@ public class SuccessActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 Toast.makeText(SuccessActivity.this,string1,Toast.LENGTH_LONG).show();
-                restartActivity();
+                Intent mIntent = getIntent();
+                finish();
+                startActivity(mIntent);
 
             }
 
@@ -485,8 +450,6 @@ public class SuccessActivity extends AppCompatActivity {
 
                     }
 
-
-
                 }
 
             } catch (Exception e) {
@@ -538,10 +501,5 @@ public class SuccessActivity extends AppCompatActivity {
     }
 
 
-    public void restartActivity(){
-        Intent mIntent = getIntent();
-        finish();
-        startActivity(mIntent);
-    }
 
 }
