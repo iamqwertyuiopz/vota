@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -220,6 +221,9 @@ public class SuccessActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLERY);
             }
         });
+
+        //String[] generos = res.getStringArray(R.array.combo_genero);
+
         ArrayAdapter<CharSequence> adapterd = ArrayAdapter.createFromResource(this,R.array.combo_dignidades,android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> adapterg = ArrayAdapter.createFromResource(this,R.array.combo_genero,android.R.layout.simple_spinner_item);
 
@@ -229,8 +233,10 @@ public class SuccessActivity extends AppCompatActivity {
         genero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Resources res = getResources();
+                String[] generosValue = res.getStringArray(R.array.combo_genero_value);
 
-                dGenero.setText(parent.getItemAtPosition(position).toString());
+                dGenero.setText(generosValue[position]);
 
             }
 
@@ -243,8 +249,10 @@ public class SuccessActivity extends AppCompatActivity {
         dignidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                dDignidad.setText(parent.getItemAtPosition(position).toString());
+                Resources resD = getResources();
+                String[] dignidadValue = resD.getStringArray(R.array.combo_dignidades_value);
 
+                dDignidad.setText(dignidadValue[position]);
             }
 
             @Override
@@ -258,7 +266,7 @@ public class SuccessActivity extends AppCompatActivity {
 
     public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        myBitmap.compress(Bitmap.CompressFormat.PNG, 67, bytes);
         File wallpaperDirectory = new File(
                 Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
         // have the object build the directory structure, if needed.
@@ -268,13 +276,13 @@ public class SuccessActivity extends AppCompatActivity {
 
         try {
             File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
+                    .getTimeInMillis() + ".png");
             f.createNewFile();
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
             MediaScannerConnection.scanFile(this,
                     new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
+                    new String[]{"image/png"}, null);
             fo.close();
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
 
@@ -343,7 +351,6 @@ public class SuccessActivity extends AppCompatActivity {
                         try {
                             thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                             myImageView.setImageBitmap(thumbnail);
-                            myImageView.setRotation(90);
                             //Obtiene la ruta donde se encuentra guardada la imagen.
                             imageurl = getRealPathFromURI(imageUri);
                             UploadImageOnServerButton.setVisibility(View.VISIBLE);
@@ -370,7 +377,7 @@ public class SuccessActivity extends AppCompatActivity {
 
 
         //PORCENTAJE DE CALIDAD                                aqui
-        thumbnail.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        thumbnail.compress(Bitmap.CompressFormat.PNG, 67, byteArrayOutputStream);
 
         byteArray = byteArrayOutputStream.toByteArray();
 
