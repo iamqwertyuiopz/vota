@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Golosovaniye</string>
+    <string name="hint_genero">Genero</string>
+    <string name="hint_dignidad">Dignidad</string>
 </resources>
