@@ -58,8 +58,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class SuccessActivity extends AppCompatActivity {
 
-    private static final String IMAGE_DIRECTORY = "/Android/data/net.ecuatecnologia.golosovaniye/archivos/imagenes";
-
     static TextView receptor;
 
     Spinner genero, dignidad;
@@ -83,8 +81,6 @@ public class SuccessActivity extends AppCompatActivity {
     String Genero = "genero";
 
     String NumeroJunta = "numero_junta";
-
-
 
     ProgressDialog progressDialog ;
 
@@ -199,10 +195,8 @@ public class SuccessActivity extends AppCompatActivity {
             }
         });
 
-        //String[] generos = res.getStringArray(R.array.combo_genero);
-
-        ArrayAdapter<CharSequence> adapterd = ArrayAdapter.createFromResource(this,R.array.combo_dignidades,android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> adapterg = ArrayAdapter.createFromResource(this,R.array.combo_genero,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterd = ArrayAdapter.createFromResource(this,R.array.combo_dignidades,R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterg = ArrayAdapter.createFromResource(this,R.array.combo_genero,R.layout.spinner_item);
 
         genero.setAdapter(adapterg);
         dignidad.setAdapter(adapterd);
@@ -256,7 +250,6 @@ public class SuccessActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void  requestMultiplePermissions(){
         Dexter.withActivity(this)
@@ -334,8 +327,6 @@ public class SuccessActivity extends AppCompatActivity {
         return cursor.getString(column_index);
     }
 
-
-
     public void UploadImageToServer(){
 
 
@@ -395,7 +386,6 @@ public class SuccessActivity extends AppCompatActivity {
         }
         AsyncTaskUploadClass AsyncTaskUploadClassOBJ = new AsyncTaskUploadClass();
         AsyncTaskUploadClassOBJ.execute();
-
 
     }
 
@@ -475,12 +465,10 @@ public class SuccessActivity extends AppCompatActivity {
 
                 stringBuilder.append(URLEncoder.encode(KEY.getValue(), "UTF-8"));
 
-
             }
 
             return stringBuilder.toString();
         }
-
 
     }
 
@@ -499,7 +487,4 @@ public class SuccessActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 }

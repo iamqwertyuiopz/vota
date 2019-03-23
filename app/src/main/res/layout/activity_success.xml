@@ -67,15 +67,15 @@
                     android:id="@+id/sGenero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:prompt="@string/hint_genero" />
+                    android:prompt="@string/hint_genero"
+                    android:spinnerMode="dialog" />
 
                 <Spinner
                     android:id="@+id/sDignidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:prompt="@string/hint_dignidad" />
+                    android:prompt="@string/hint_dignidad"
+                    android:spinnerMode="dialog" />
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
