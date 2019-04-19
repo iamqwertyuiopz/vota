@@ -51,6 +51,8 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import es.dmoral.toasty.Toasty;
+
 public class SuccessActivity extends AppCompatActivity {
 
     static TextView receptor;
@@ -161,7 +163,7 @@ public class SuccessActivity extends AppCompatActivity {
                 Intent mainIntent = new Intent(SuccessActivity.this, MainActivity.class);
                 startActivity(mainIntent);
                 SuccessActivity.this.finish();
-                Toast.makeText(SuccessActivity.this, "Sesión Cerrada", Toast.LENGTH_LONG).show();
+                Toasty.warning(SuccessActivity.this, "Sesión Cerrada", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -349,7 +351,7 @@ public class SuccessActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
-                Toast.makeText(SuccessActivity.this,string1,Toast.LENGTH_LONG).show();
+                Toasty.success(SuccessActivity.this,string1,Toast.LENGTH_LONG).show();
                 Intent mIntent = getIntent();
                 finish();
                 startActivity(mIntent);

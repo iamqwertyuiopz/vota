@@ -20,6 +20,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import es.dmoral.toasty.Toasty;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int CONNECTION_TIMEOUT=10000;
@@ -163,16 +165,16 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("dato", dato);
                 startActivity(intent);
                 MainActivity.this.finish();
-                Toast.makeText(MainActivity.this, "Credenciales Correctas", Toast.LENGTH_LONG).show();
+                Toasty.success(MainActivity.this, "Credenciales Correctas", Toast.LENGTH_LONG).show();
 
             }else if (result.equalsIgnoreCase("false")){
 
                 // If username and password does not match display a error message
-                Toast.makeText(MainActivity.this, "Usuario o contraseña invalido", Toast.LENGTH_LONG).show();
+                Toasty.error(MainActivity.this, "Usuario o contraseña invalido", Toast.LENGTH_LONG).show();
 
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
 
-                Toast.makeText(MainActivity.this, "OOPs! Problemas de conexion.", Toast.LENGTH_LONG).show();
+                Toasty.warning(MainActivity.this, "OOPs! Problemas de conexion.", Toast.LENGTH_LONG).show();
 
             }
         }
