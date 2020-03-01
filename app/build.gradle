@@ -6,8 +6,8 @@ android {
         applicationId "net.ecuatecnologia.golosovaniye"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 5
-        versionName "inestable"
+        versionCode 2.0
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

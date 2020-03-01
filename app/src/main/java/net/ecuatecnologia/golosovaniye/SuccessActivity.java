@@ -375,7 +375,7 @@ public class SuccessActivity extends AppCompatActivity {
 
                 HashMapParams.put(DignidadCodigo, GetDignidad);
 
-                String FinalData = imageProcessClass.ImageHttpRequest("http://134.209.13.62/index.php", HashMapParams);
+                String FinalData = imageProcessClass.ImageHttpRequest("http://apps.lxndr.live/php/index.php", HashMapParams);
 
                 return FinalData;
 

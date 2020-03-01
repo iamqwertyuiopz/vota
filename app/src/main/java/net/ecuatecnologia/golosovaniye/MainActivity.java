@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.io.BufferedReader;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int READ_TIMEOUT=15000;
     private EditText etEmail;
     private EditText etPassword;
-
+    private Button regButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,17 @@ public class MainActivity extends AppCompatActivity {
 
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
+        regButton = (Button) findViewById(R.id.regButton);
+
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent mainIntent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(mainIntent);
+                MainActivity.this.finish();
+            }
+        });
 
     }
 
@@ -51,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         new AsyncLogin().execute(email,password);
 
     }
+
 
     private class AsyncLogin extends AsyncTask<String, String, String>
     {
@@ -73,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 //URL del archivo login.php
-                url = new URL("http://134.209.13.62/login/login.inc.php");
+                url = new URL("http://apps.lxndr.live/php/login/login.inc.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
